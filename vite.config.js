@@ -19,4 +19,16 @@ export default defineConfig({
     host: '0.0.0.0', // Aceptar conexiones desde cualquier interfaz
     port: 5178,      // Cambia el puerto si es necesario
   },
+  build: {
+    // Asegurarse de que el output sea en dist/
+    outDir: 'dist',
+    // No fallar el build por warnings
+    rollupOptions: {
+      onwarn(warning, warn) {
+        // Ignorar warnings específicos si es necesario
+        if (warning.code === 'UNUSED_EXTERNAL_IMPORT') return
+        warn(warning)
+      }
+    }
+  }
 })
